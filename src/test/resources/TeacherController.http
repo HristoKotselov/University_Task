@@ -1,0 +1,54 @@
+GET http://localhost:8080/api/teacher/2
+
+###
+
+POST http://localhost:8080/api/teacher/add
+Content-Type: application/json
+
+{
+  "teacherId": 2,
+  "firstName" : "Jessy",
+  "lastName" : "Wellens",
+  "age" : 20
+}
+
+###
+
+DELETE http://localhost:8080/api/teacher/delete/5
+
+###
+
+DELETE http://localhost:8080/api/teacher/delete
+Content-Type: application/json
+
+{
+  "teacherId": 5,
+  "firstName": "John",
+  "lastName": "Smith",
+  "age": 20
+}
+
+###
+
+PUT http://localhost:8080/api/teacher/update
+Content-Type: application/json
+
+{
+  "teacherId": 2,
+  "firstName": "John",
+  "lastName": "Doe",
+  "age": 40,
+  "group": {
+    "groupId": 1
+  },
+  "courses": [
+    {
+      "courseId": 1
+    }
+  ]
+}
+
+###
+
+GET http://localhost:8080/api/teacher/count
+

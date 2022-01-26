@@ -1,0 +1,881 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https:///www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="Hristo" context="dev,utest">
+        <sql>
+            create schema if not exists university
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="Hristo" context="dev,utest">
+        <createTable tableName="course_student">
+            <column name="course_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="student_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="course_teacher">
+            <column name="course_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="teacher_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="student">
+            <column autoIncrement="true" name="student_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(256)"/>
+            <column name="last_name" type="VARCHAR(256)"/>
+            <column name="age" type="NUMBER"/>
+            <column name="group_id" type="BIGINT">
+                <constraints foreignKeyName=""/>
+            </column>
+
+        </createTable>
+
+        <createTable tableName="course">
+            <column autoIncrement="true" name="course_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="course_name" type="VARCHAR(256)"/>
+            <column name="course_type" type="VARCHAR(256)"/>
+            <column name="teacher_id" type="BIGINT"/>
+        </createTable>
+
+        <createTable tableName="teacher">
+            <column autoIncrement="true" name="teacher_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(256)"/>
+            <column name="last_name" type="VARCHAR(256)"/>
+            <column name="age" type="NUMBER"/>
+            <column name="group_id" type="BIGINT"/>
+        </createTable>
+
+        <createTable tableName="study_group">
+            <column autoIncrement="true" name="group_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="group_id"
+                                 baseTableName="teacher"
+                                 constraintName="fk_teacher_group_id"
+                                 referencedColumnNames="group_id"
+                                 referencedTableName="study_group"/>
+
+        <addForeignKeyConstraint baseColumnNames="teacher_id"
+                                 baseTableName="course"
+                                 constraintName="fk_course_teacher_id"
+                                 referencedColumnNames="teacher_id"
+                                 referencedTableName="teacher"/>
+
+        <addForeignKeyConstraint baseColumnNames="group_id"
+                                 baseTableName="student"
+                                 constraintName="fk_student_group_id"
+                                 referencedColumnNames="group_id"
+                                 referencedTableName="study_group"/>
+
+        <addForeignKeyConstraint baseColumnNames="course_id"
+                                 baseTableName="course_student"
+                                 constraintName="fk_course_id_student_id"
+                                 referencedColumnNames="course_id"
+                                 referencedTableName="course"/>
+
+        <addForeignKeyConstraint baseColumnNames="student_id"
+                                 baseTableName="course_student"
+                                 constraintName="fk_student_id_course_id"
+                                 referencedColumnNames="student_id"
+                                 referencedTableName="student"/>
+
+        <addForeignKeyConstraint baseColumnNames="course_id"
+                                 baseTableName="course_teacher"
+                                 constraintName="fk_course_id_teacher_id"
+                                 referencedColumnNames="course_id"
+                                 referencedTableName="course"/>
+
+        <addForeignKeyConstraint baseColumnNames="teacher_id"
+                                 baseTableName="course_teacher"
+                                 constraintName="fk_teacher_id_course_id"
+                                 referencedColumnNames="teacher_id"
+                                 referencedTableName="teacher"/>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="1"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="2"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="3"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="4"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="5"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="6"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="7"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="8"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="9"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="10"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="11"/>
+        </insert>
+
+        <insert tableName="study_group">
+            <column name="group_id" value="12"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="1"/>
+            <column name="first_name" value="John"/>
+            <column name="last_name" value="Smith"/>
+            <column name="age" value="35"/>
+            <column name="group_id" value="1"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="2"/>
+            <column name="first_name" value="Jason"/>
+            <column name="last_name" value="James"/>
+            <column name="age" value="40"/>
+            <column name="group_id" value="2"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="3"/>
+            <column name="first_name" value="Jason"/>
+            <column name="last_name" value="Smith"/>
+            <column name="age" value="42"/>
+            <column name="group_id" value="3"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="4"/>
+            <column name="first_name" value="Jessica"/>
+            <column name="last_name" value="Waters"/>
+            <column name="age" value="35"/>
+            <column name="group_id" value="4"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="5"/>
+            <column name="first_name" value="Johny"/>
+            <column name="last_name" value="Depp"/>
+            <column name="age" value="55"/>
+            <column name="group_id" value="4"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="6"/>
+            <column name="first_name" value="Richard"/>
+            <column name="last_name" value="Branson"/>
+            <column name="age" value="65"/>
+            <column name="group_id" value="5"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="7"/>
+            <column name="first_name" value="Jeff"/>
+            <column name="last_name" value="Bezos"/>
+            <column name="age" value="50"/>
+            <column name="group_id" value="6"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="8"/>
+            <column name="first_name" value="Cameron"/>
+            <column name="last_name" value="Diaz"/>
+            <column name="age" value="43"/>
+            <column name="group_id" value="8"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="9"/>
+            <column name="first_name" value="James"/>
+            <column name="last_name" value="Bond"/>
+            <column name="age" value="40"/>
+            <column name="group_id" value="8"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="10"/>
+            <column name="first_name" value="Lana"/>
+            <column name="last_name" value="Del Rey"/>
+            <column name="age" value="45"/>
+            <column name="group_id" value="9"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="11"/>
+            <column name="first_name" value="Floyd"/>
+            <column name="last_name" value="Mayweather"/>
+            <column name="age" value="45"/>
+            <column name="group_id" value="10"/>
+        </insert>
+
+        <insert tableName="teacher">
+            <column name="teacher_id" value="12"/>
+            <column name="first_name" value="Elon"/>
+            <column name="last_name" value="Musk"/>
+            <column name="age" value="45"/>
+            <column name="group_id" value="7"/>
+        </insert>
+
+        <insert tableName="course">
+            <column name="course_id" value="1"/>
+            <column name="course_name" value="Algorithms"/>
+            <column name="course_type" value="MAIN"/>
+        </insert>
+
+        <insert tableName="course">
+            <column name="course_id" value="2"/>
+            <column name="course_name" value="Artificial Intelligence"/>
+            <column name="course_type" value="MAIN"/>
+        </insert>
+
+        <insert tableName="course">
+            <column name="course_id" value="3"/>
+            <column name="course_name" value="OOP"/>
+            <column name="course_type" value="MAIN"/>
+        </insert>
+
+        <insert tableName="course">
+            <column name="course_id" value="4"/>
+            <column name="course_name" value="Functional Programming"/>
+            <column name="course_type" value="MAIN"/>
+        </insert>
+
+        <insert tableName="course">
+            <column name="course_id" value="5"/>
+            <column name="course_name" value="Databases"/>
+            <column name="course_type" value="MAIN"/>
+        </insert>
+
+        <insert tableName="course">
+            <column name="course_id" value="6"/>
+            <column name="course_name" value="Web Develoment"/>
+            <column name="course_type" value="MAIN"/>
+        </insert>
+
+        <insert tableName="course">
+            <column name="course_id" value="7"/>
+            <column name="course_name" value="Mobile Develoment"/>
+            <column name="course_type" value="MAIN"/>
+        </insert>
+
+        <insert tableName="course">
+            <column name="course_id" value="8"/>
+            <column name="course_name" value="Networking"/>
+            <column name="course_type" value="MAIN"/>
+        </insert>
+
+        <insert tableName="course">
+            <column name="course_id" value="9"/>
+            <column name="course_name" value="Hardware"/>
+            <column name="course_type" value="SECONDARY"/>
+        </insert>
+
+        <insert tableName="course">
+            <column name="course_id" value="10"/>
+            <column name="course_name" value="Logic"/>
+            <column name="course_type" value="SECONDARY"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="1"/>
+            <column name="first_name" value="Harry"/>
+            <column name="last_name" value="McGuire"/>
+            <column name="age" value="25"/>
+            <column name="group_id" value="1"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="2"/>
+            <column name="first_name" value="James"/>
+            <column name="last_name" value="Keef"/>
+            <column name="age" value="23"/>
+            <column name="group_id" value="1"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="3"/>
+            <column name="first_name" value="James"/>
+            <column name="last_name" value="O'Malley"/>
+            <column name="age" value="24"/>
+            <column name="group_id" value="1"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="4"/>
+            <column name="first_name" value="Barbara"/>
+            <column name="last_name" value="Jefferson"/>
+            <column name="age" value="23"/>
+            <column name="group_id" value="2"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="5"/>
+            <column name="first_name" value="Pikachu"/>
+            <column name="last_name" value="Pikachu"/>
+            <column name="age" value="18"/>
+            <column name="group_id" value="2"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="6"/>
+            <column name="first_name" value="Marshal"/>
+            <column name="last_name" value="Mathers"/>
+            <column name="age" value="35"/>
+            <column name="group_id" value="3"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="7"/>
+            <column name="first_name" value="Bonny"/>
+            <column name="last_name" value="Dillinger"/>
+            <column name="age" value="20"/>
+            <column name="group_id" value="3"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="8"/>
+            <column name="first_name" value="Dorothy"/>
+            <column name="last_name" value="Dickson"/>
+            <column name="age" value="21"/>
+            <column name="group_id" value="4"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="9"/>
+            <column name="first_name" value="Barry"/>
+            <column name="last_name" value="White"/>
+            <column name="age" value="45"/>
+            <column name="group_id" value="4"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="10"/>
+            <column name="first_name" value="Huckleberry"/>
+            <column name="last_name" value="Finn"/>
+            <column name="age" value="25"/>
+            <column name="group_id" value="5"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="11"/>
+            <column name="first_name" value="Mojo"/>
+            <column name="last_name" value="Jojo"/>
+            <column name="age" value="25"/>
+            <column name="group_id" value="5"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="12"/>
+            <column name="first_name" value="Dexter"/>
+            <column name="last_name" value="Boy-Genius"/>
+            <column name="age" value="18"/>
+            <column name="group_id" value="6"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="13"/>
+            <column name="first_name" value="Jason"/>
+            <column name="last_name" value="Momoa"/>
+            <column name="age" value="30"/>
+            <column name="group_id" value="7"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="14"/>
+            <column name="first_name" value="Lilly"/>
+            <column name="last_name" value="Magic"/>
+            <column name="age" value="19"/>
+            <column name="group_id" value="8"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="15"/>
+            <column name="first_name" value="Chris"/>
+            <column name="last_name" value="Angel"/>
+            <column name="age" value="38"/>
+            <column name="group_id" value="8"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="16"/>
+            <column name="first_name" value="Peter"/>
+            <column name="last_name" value="Quill"/>
+            <column name="age" value="32"/>
+            <column name="group_id" value="9"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="17"/>
+            <column name="first_name" value="Peter"/>
+            <column name="last_name" value="Jackson"/>
+            <column name="age" value="80"/>
+            <column name="group_id" value="9"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="18"/>
+            <column name="first_name" value="Ellen"/>
+            <column name="last_name" value="Degeneres"/>
+            <column name="age" value="50"/>
+            <column name="group_id" value="10"/>
+        </insert>
+
+        <insert tableName="student">
+            <column name="student_id" value="19"/>
+            <column name="first_name" value="Anne"/>
+            <column name="last_name" value="Frank"/>
+            <column name="age" value="20"/>
+            <column name="group_id" value="6"/>
+        </insert>
+        <insert tableName="student">
+            <column name="student_id" value="20"/>
+            <column name="first_name" value="Rosa"/>
+            <column name="last_name" value="Parks"/>
+            <column name="age" value="31"/>
+            <column name="group_id" value="7"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="1"/>
+            <column name="student_id" value="1"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="1"/>
+            <column name="student_id" value="2"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="1"/>
+            <column name="student_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="1"/>
+            <column name="student_id" value="4"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="1"/>
+            <column name="student_id" value="5"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="1"/>
+            <column name="student_id" value="6"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="2"/>
+            <column name="student_id" value="2"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="2"/>
+            <column name="student_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="2"/>
+            <column name="student_id" value="15"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="2"/>
+            <column name="student_id" value="8"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="2"/>
+            <column name="student_id" value="5"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="2"/>
+            <column name="student_id" value="20"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="3"/>
+            <column name="student_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="3"/>
+            <column name="student_id" value="1"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="3"/>
+            <column name="student_id" value="17"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="3"/>
+            <column name="student_id" value="6"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="3"/>
+            <column name="student_id" value="12"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="4"/>
+            <column name="student_id" value="19"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="4"/>
+            <column name="student_id" value="16"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="4"/>
+            <column name="student_id" value="9"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="4"/>
+            <column name="student_id" value="20"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="4"/>
+            <column name="student_id" value="4"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="5"/>
+            <column name="student_id" value="6"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="6"/>
+            <column name="student_id" value="7"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="6"/>
+            <column name="student_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="6"/>
+            <column name="student_id" value="14"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="6"/>
+            <column name="student_id" value="17"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="7"/>
+            <column name="student_id" value="8"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="7"/>
+            <column name="student_id" value="9"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="7"/>
+            <column name="student_id" value="11"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="7"/>
+            <column name="student_id" value="13"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="7"/>
+            <column name="student_id" value="15"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="8"/>
+            <column name="student_id" value="11"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="8"/>
+            <column name="student_id" value="12"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="8"/>
+            <column name="student_id" value="17"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="9"/>
+            <column name="student_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="9"/>
+            <column name="student_id" value="4"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="10"/>
+            <column name="student_id" value="6"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="10"/>
+            <column name="student_id" value="2"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="10"/>
+            <column name="student_id" value="20"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="10"/>
+            <column name="student_id" value="18"/>
+        </insert>
+
+        <insert tableName="course_student">
+            <column name="course_id" value="10"/>
+            <column name="student_id" value="13"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="1"/>
+            <column name="teacher_id" value="1"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="1"/>
+            <column name="teacher_id" value="2"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="1"/>
+            <column name="teacher_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="2"/>
+            <column name="teacher_id" value="4"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="2"/>
+            <column name="teacher_id" value="5"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="2"/>
+            <column name="teacher_id" value="6"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="3"/>
+            <column name="teacher_id" value="2"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="3"/>
+            <column name="teacher_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="3"/>
+            <column name="teacher_id" value="12"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="4"/>
+            <column name="teacher_id" value="8"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="4"/>
+            <column name="teacher_id" value="5"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="4"/>
+            <column name="teacher_id" value="10"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="5"/>
+            <column name="teacher_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="5"/>
+            <column name="teacher_id" value="1"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="5"/>
+            <column name="teacher_id" value="11"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="6"/>
+            <column name="teacher_id" value="6"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="6"/>
+            <column name="teacher_id" value="12"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="6"/>
+            <column name="teacher_id" value="9"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="7"/>
+            <column name="teacher_id" value="9"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="2"/>
+            <column name="teacher_id" value="9"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="7"/>
+            <column name="teacher_id" value="8"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="7"/>
+            <column name="teacher_id" value="5"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="8"/>
+            <column name="teacher_id" value="6"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="8"/>
+            <column name="teacher_id" value="7"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="8"/>
+            <column name="teacher_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="9"/>
+            <column name="teacher_id" value="9"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="9"/>
+            <column name="teacher_id" value="2"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="10"/>
+            <column name="teacher_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="10"/>
+            <column name="teacher_id" value="4"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="10"/>
+            <column name="teacher_id" value="5"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="9"/>
+            <column name="teacher_id" value="6"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="5"/>
+            <column name="teacher_id" value="7"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="8"/>
+            <column name="teacher_id" value="11"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="8"/>
+            <column name="teacher_id" value="12"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="8"/>
+            <column name="teacher_id" value="4"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="9"/>
+            <column name="teacher_id" value="3"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="9"/>
+            <column name="teacher_id" value="4"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="10"/>
+            <column name="teacher_id" value="6"/>
+        </insert>
+
+        <insert tableName="course_teacher">
+            <column name="course_id" value="10"/>
+            <column name="teacher_id" value="2"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

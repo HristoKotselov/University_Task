@@ -1,0 +1,82 @@
+GET http://localhost:8080/api/student/2
+
+###
+
+POST http://localhost:8080/api/student/add
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "age": 20,
+  "group": {
+    "groupId": 10
+  }
+}
+
+###
+
+DELETE http://localhost:8080/api/student/delete/6
+
+###
+
+DELETE http://localhost:8080/api/student/delete
+Content-Type: application/json
+
+{
+  "studentId": 2,
+  "firstName": "James",
+  "lastName": "Keef",
+  "age": 23
+}
+
+###
+
+PUT http://localhost:8080/api/student/update
+Content-Type: application/json
+
+{
+  "studentId": 9,
+  "firstName": "Joe",
+  "lastName": "Biden",
+  "age": 70,
+  "group": {
+    "groupId": 1
+  },
+  "courses": [
+    {
+      "courseId": 1
+    }
+  ]
+}
+
+###
+
+POST http://localhost:8080/api/student/add/list
+Content-Type: application/json
+
+[
+  {
+    "firstName": "Danny",
+    "lastName": "Mojo",
+    "age": 15
+  },
+  {
+    "firstName": "Jessica",
+    "lastName": "Davidson",
+    "age": 25
+  }
+]
+
+###
+
+GET http://localhost:8080/api/student/list
+
+###
+
+GET http://localhost:8080/api/student/list?age=18&courseId=1
+
+###
+
+GET http://localhost:8080/api/student/count
+

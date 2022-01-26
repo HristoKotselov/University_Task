@@ -1,0 +1,12 @@
+GET http://localhost:8080/api/course/list
+
+###
+
+GET http://localhost:8080/api/course/list?courseType=MAIN
+
+###
+
+GET http://localhost:8080/api/course/student/list?courseId=1
+
+###
+
